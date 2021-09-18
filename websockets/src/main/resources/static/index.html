@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+
+<script>
+
+    window.addEventListener('load', (e) => {
+        const socket = new SockJS('/chat');
+        const stompClient = Stomp.over(socket);
+        stompClient.connect({}, (frame) => {
+
+            stompClient.subscribe('/topic/greetings', function (greeting) {
+                console.log(JSON.stringify(greeting));
+            });
+
+            stompClient.send('/app/chat', {}, JSON.stringify({name: 'Josh'}))
+        });
+
+
+    })
+</script>
+<a href="" id="stomp">Go webs(sockets), go!</a>
+</body>
+</html>
