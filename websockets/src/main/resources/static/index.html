@@ -10,20 +10,24 @@
 <script>
 
     window.addEventListener('load', (e) => {
-        const socket = new SockJS('/chat');
-        const stompClient = Stomp.over(socket);
+        const socket = new SockJS('/chat')
+        const stompClient = Stomp.over(socket)
         stompClient.connect({}, (frame) => {
 
-            stompClient.subscribe('/topic/greetings', function (greeting) {
-                console.log(JSON.stringify(greeting));
+            stompClient.subscribe('/topic/errors', (greeting) => {
+                console.warn('errors: ' + greeting.body)
             });
 
-            stompClient.send('/app/chat', {}, JSON.stringify({name: 'Josh'}))
+            stompClient.subscribe('/topic/greetings', (greeting) => {
+                console.log('greetings: ' + greeting.body)
+            });
+
+            stompClient.send('/app/chat', {}, JSON.stringify({name: 'Tammie'}))
+            stompClient.send('/app/chat', {}, JSON.stringify({name: 'josh'}))
         });
 
 
     })
 </script>
-<a href="" id="stomp">Go webs(sockets), go!</a>
 </body>
 </html>
