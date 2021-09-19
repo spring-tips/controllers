@@ -1,0 +1,12 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+    <div>
+        Name: <input type="text" th:field="${greeting.name}"/>
+    </div>
+    <div>
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
+</body>
+</html>
